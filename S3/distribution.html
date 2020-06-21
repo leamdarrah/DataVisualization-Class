@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Frequency Polygon</title>
+</head>
+<style>
+
+	canvas{
+		border: 1px solid;
+	}
+</style>
+<body>
+	<canvas></canvas>
+	<script>
+		/*some code referenced from https://www.youtube.com/watch?v=9rKuJrONnGQ&pbjreload=10
+		but not all*/
+		let canvas=document.querySelector('canvas');
+		canvas.width=1000;
+		canvas.height=1000;
+
+
+		let xGrid=30;
+		let yGrid=30;
+		let cellSize=30;
+
+		let ctx = canvas.getContext('2d');
+
+
+
+		//****GRID****
+		function drawGrids()
+		{
+			ctx.beginPath();
+
+			//x-axis
+			while(xGrid < canvas.height)
+			{
+				ctx.moveTo(0,xGrid);
+				ctx.lineTo(canvas.width,xGrid);
+				xGrid+=cellSize;
+			}
+			//y-axis
+			while(yGrid < canvas.width)
+			{
+				ctx.moveTo(yGrid, 0);
+				ctx.lineTo(yGrid,canvas.height);
+				yGrid+=cellSize;
+			}
+			ctx.strokeStyle = "#d9d9d9";
+			ctx.stroke();
+		}
+
+
+		//can use blocks as a reference
+		//whenever you call this function, we can count the blocks
+			//see drawAxis function to understand what i mean
+		function blocks(count){
+			return count*30;
+		}
+
+		//****y-axis values
+ 		function Yvalues(){
+ 			let yPlot=30;
+ 			let pop=0;
+ 			ctx.beginPath();
+ 			ctx.fillStyle = "black";
+			ctx.font = "25px Arial";
+ 			ctx.moveTo(blocks(3),blocks(30));
+ 			
+ 			for(let i=1; i<=10;i++)
+ 			{
+ 				ctx.strokeText(pop,blocks(1.5),blocks(yPlot));
+ 				yPlot-=3;	//distance between each value (vertically)
+ 				pop+=20;	//what number to start and add thaat number
+ 			}
+ 		}
+
+		//****AXIS LINES****
+ 		function drawAxis()
+ 		{
+ 			ctx.beginPath();
+ 			ctx.strokeStyle = "black";
+ 			ctx.lineWidth = 3;
+
+ 			ctx.moveTo(blocks(3),blocks(3));	//top point y-axis
+ 			ctx.lineTo(blocks(3),blocks(30));	//bottom point y-axis
+ 			ctx.lineTo(blocks(30),blocks(30));	//right point of x-axis
+ 			
+ 			ctx.stroke();
+ 		}
+
+ 		function lines()
+ 		{
+ 			ctx.beginPath();
+ 			ctx.strokeStyle = "black";
+ 			ctx.lineWidth = 3;
+			//(x , y, width, height)
+
+			ctx.moveTo(blocks(3),blocks(4));//2013: 169.8 per 100,000
+			ctx.lineTo(blocks(8),blocks(5));//2014: 167
+			ctx.lineTo(blocks(13),blocks(4.5));//2015: 168.5
+			ctx.lineTo(blocks(18),blocks(4.8));//2016: 165.5
+			ctx.lineTo(blocks(23),blocks(5.8));//2017: 165
+			
+			ctx.stroke();
+
+			//circles to mark the point better
+			ctx.beginPath();
+			ctx.arc(blocks(3),blocks(4),5,0, Math.PI * 2);
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(blocks(8),blocks(5),5,0, Math.PI * 2);
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(blocks(13),blocks(4.5),5,0, Math.PI * 2);
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(blocks(18),blocks(4.8),5,0, Math.PI * 2);
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(blocks(23),blocks(5.8),5,0, Math.PI * 2);
+			ctx.fill();			
+ 		}
+
+ 		function text(){
+ 		//x-axis labels
+ 		ctx.font = "25px Arial";
+ 		ctx.fillText("2013", 60, 940);
+		ctx.fillText("2014", 200, 940);
+		ctx.fillText("2015 ", 370, 940);
+		ctx.fillText("2016", 520, 940);
+		ctx.fillText("2017", 650, 940);
+
+		//y-axis labels
+		ctx.save();
+		ctx.translate(25,700);
+		ctx.rotate(-0.5*Math.PI);
+		var rText = 'Number of Deaths (# out of 100,000 people)';
+		ctx.fillText(rText , 0, 0);
+		ctx.restore();
+
+		//main title
+		ctx.font = "30px Arial";
+		ctx.fillText("Cardiovascular Deaths per 100,000 from 2013-2017", 200, 100);
+ 		}
+
+
+
+ 		//call out FUNCTIONS
+		Yvalues();
+ 		drawGrids();
+ 		lines();
+ 		drawAxis();
+ 		text();
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

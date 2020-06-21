@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Scatterplot</title>
+</head>
+<style>
+	#canvas{
+		border: 1px solid;
+		width: 800px;
+		height: 800px;
+	}
+</style>
+<body>
+	<canvas id="canvas" />
+	<script>
+		var canvas = document.getElementById('canvas');
+
+		//set drawing surface dimensions to match canvas
+		canvas.width = canvas.scrollWidth;
+		canvas.height = canvas.scrollHeight;
+
+		//
+		var ctx = canvas.getContext('2d');
+
+		//1
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		//format of circle: ctx.arc(x,y,radius,0, Math.PI*2)
+		ctx.arc(100,570,10,0, Math.PI * 2);
+		ctx.fill();
+
+		//2
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.arc(260,470,10,0, Math.PI * 2);
+		ctx.fill();
+
+		//3
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.arc(390,450,10,0, Math.PI * 2);
+		ctx.fill();
+
+		//4
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.arc(460,300,10,0, Math.PI * 2);
+		ctx.fill();
+
+		//5
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.arc(600,160,10,0, Math.PI * 2);
+		ctx.fill();
+
+
+
+		//text (axis labels)
+		ctx.fillStyle = "black";
+		ctx.font = "25px Arial";
+		ctx.fillText("Study Time (hours)", 230, 720);
+
+		ctx.save();
+		ctx.translate(25,550);
+		ctx.rotate(-0.5*Math.PI);
+		var rText = 'Exam Grade (percentage)';
+		ctx.fillText(rText , 0, 0);
+		ctx.restore();
+
+
+		//text (x-values)
+		ctx.font = "15px Arial";
+		ctx.fillText("1", 80, 680);
+
+		ctx.font = "15px Arial";
+		ctx.fillText("5", 325, 680);
+
+		ctx.font = "15px Arial";
+		ctx.fillText("10", 590, 680);
+
+
+
+		//text (y-values)
+		ctx.font = "15px Arial";
+		ctx.fillText("0", 50, 650);
+
+		ctx.font = "15px Arial";
+		ctx.fillText("50", 50, 400);
+
+		ctx.font = "15px Arial";
+		ctx.fillText("100", 50, 100);
+
+		//y-axis lines
+		ctx.beginPath();
+		ctx.moveTo(80, 100);	//beginning point of line: (x,y)
+		ctx.lineTo(80, 650);	//end point of line: (x,y)
+		ctx.stroke();
+
+		//x-axis lines
+		ctx.beginPath();
+		ctx.moveTo(80, 650);	//beginning point of line: (x,y)
+		ctx.lineTo(600, 650);	//end point of line: (x,y)
+		ctx.stroke();
+	</script>
+
+
+
+</body>
+</html>

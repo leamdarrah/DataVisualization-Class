@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ordered Column</title>
+</head>
+<style>
+
+	canvas{
+		border: 1px solid;
+		width: 800px;
+		height: 600px;
+	}
+</style>
+<body>
+	<canvas></canvas>
+	<script>
+		/*some code referenced from https://www.youtube.com/watch?v=9rKuJrONnGQ&pbjreload=10
+		but not all*/
+		let canvas=document.querySelector('canvas');
+		canvas.width=1000;
+		canvas.height=1000;
+
+
+		let xGrid=30;
+		let yGrid=30;
+		let cellSize=30;
+
+		let ctx = canvas.getContext('2d');
+
+
+
+		//****GRID****
+		function drawGrids()
+		{
+			ctx.beginPath();
+
+			//x-axis
+			while(xGrid < canvas.height)
+			{
+				ctx.moveTo(0,xGrid);
+				ctx.lineTo(canvas.width,xGrid);
+				xGrid+=cellSize;
+			}
+			//y-axis
+			while(yGrid < canvas.width)
+			{
+				ctx.moveTo(yGrid, 0);
+				ctx.lineTo(yGrid,canvas.height);
+				yGrid+=cellSize;
+			}
+			ctx.strokeStyle = "#d9d9d9";
+			ctx.stroke();
+		}
+
+
+		//can use blocks as a reference
+		//whenever you call this function, we can count the blocks
+			//see drawAxis function to understand what i mean
+		function blocks(count){
+			return count*30;
+		}
+
+
+
+
+		//****y-axis values
+ 		function Yvalues(){
+ 			let yPlot=30;
+ 			let pop=0;
+ 			ctx.beginPath();
+ 			ctx.fillStyle = "black";
+			ctx.font = "15px Arial";
+ 			ctx.moveTo(blocks(3),blocks(30));
+ 			
+ 			for(let i=1; i<=10;i++)
+ 			{
+ 				ctx.strokeText(pop,blocks(1.2),blocks(yPlot));
+ 				yPlot-=3;	//distance between each value (vertically)
+ 				pop+=100000;	//what number to start and add thaat number
+ 			}
+ 		}
+
+
+
+
+		//****AXIS LINES****
+ 		function drawAxis()
+ 		{
+ 			let yPlot=30;
+ 			let pop=0;
+ 			ctx.beginPath();
+ 			ctx.strokeStyle = "black";
+ 			ctx.lineWidth = 3;
+
+ 			ctx.moveTo(blocks(3),blocks(3));	//top point y-axis
+ 			ctx.lineTo(blocks(3),blocks(30));	//bottom point y-axis
+ 			ctx.lineTo(blocks(30),blocks(30));	//right point of x-axis
+ 			
+ 			ctx.stroke();
+ 		}
+
+
+ 		function bars()
+ 		{
+ 			ctx.beginPath();
+ 			ctx.fillStyle = 'blue';
+			ctx.beginPath();
+			//(x , y, width, height)
+			ctx.fillRect(130, 300, 100,600);//cardiovasular 647k
+			ctx.fillRect(330, 350, 100,550);//cancer 600k
+			ctx.fillRect(530, 725, 100,175);//accidents (unintentional) 170k
+			ctx.fillRect(730, 750, 100,150);//respiratory disease 146k
+ 		}
+
+
+ 		function text(){
+ 		ctx.font = "18px Arial";
+		ctx.fillText("Cardiovasular Disease", 100, 940);
+		ctx.fillText("Cancer ", 350, 940);
+		ctx.fillText("Accidents", 545, 940);
+		ctx.fillText("Respiratory Disease", 700, 940);
+
+		ctx.save();
+		ctx.translate(25,550);
+		ctx.rotate(-0.5*Math.PI);
+		var rText = 'Number of Deaths';
+		ctx.fillText(rText , 0, 0);
+		ctx.restore();
+
+		ctx.font = "40px Arial";
+		ctx.fillText("Leading Causes of Death in the U.S.", 200, 100);
+ 		}
+
+ 		//call out FUNCTIONS
+ 		
+		Yvalues();
+ 		drawGrids();
+ 		bars();
+ 		drawAxis();
+ 		text();
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

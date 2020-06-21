@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Lollipop</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid;
+		width: 800px;
+		height: 600px;
+	}
+</style>
+<body>
+	<canvas></canvas>
+	<script>
+		let canvas=document.querySelector('canvas');
+		canvas.width=1000;
+		canvas.height=1000;
+
+		let ctx = canvas.getContext('2d');
+ 
+
+		//can use blocks as a reference
+		//whenever you call this function, we can count the blocks
+			//see drawAxis function to understand what i mean
+		function blocks(count){
+			return count*30;
+		}
+
+
+ 		function Yvalues(){
+ 			let yPlot=30;
+ 			let pop=0;
+ 			ctx.beginPath();
+ 			ctx.fillStyle = "black";
+			ctx.font = "25px Arial";
+ 			ctx.moveTo(blocks(3),blocks(30));
+ 			
+ 			for(let i=1; i<=10;i++)
+ 			{
+ 				ctx.strokeText(pop,blocks(1.5),blocks(yPlot));
+ 				yPlot-=3;	//distance between each value (vertically)
+ 				pop+=15;	//what number to start and add thaat number
+ 			}
+ 		}
+
+
+
+ 		function drawAxis()
+ 		{
+ 			let yPlot=30;
+ 			let pop=0;
+ 			ctx.beginPath();
+ 			ctx.strokeStyle = "black";
+ 			ctx.lineWidth = 3;
+
+ 			ctx.moveTo(blocks(3),blocks(3));	//top point y-axis
+ 			ctx.lineTo(blocks(3),blocks(30));	//bottom point y-axis
+ 			ctx.lineTo(blocks(30),blocks(30));	//right point of x-axis
+ 			
+ 			ctx.stroke();
+ 		}
+
+
+ 		function lollipop()
+ 		{
+ 			ctx.beginPath();
+ 			ctx.fillStyle = 'orange';
+					   //(x,  y,  width,height)
+			ctx.fillRect(130, 220, 8, 680);//jeff $114b
+			ctx.fillRect(330, 240, 8, 660);//bill $106b
+			ctx.fillRect(530, 400, 8, 500);//warrenn $80.8b
+			ctx.fillRect(730, 500, 8, 400);//mark $70b
+
+
+
+			//format of circle: ctx.arc(x,y,radius,0, Math.PI*2)
+			ctx.beginPath();
+			ctx.arc(135,240,30,0, Math.PI * 2);//jeff $114b
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(335,270,30,0, Math.PI * 2);//bill $106b
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(535,430,30,0, Math.PI * 2);//warrenn $80.8b
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.arc(735,530,30,0, Math.PI * 2);//mark $70b
+			ctx.fill();
+ 		}
+
+
+ 		function text(){
+ 		//x-axis labels
+ 		ctx.font = "18px Arial";
+		ctx.fillText("Jeff Bezos", 100, 940);
+		ctx.fillText("Bill Gates ", 300, 940);
+		ctx.fillText("Warren Buffett", 480, 940);
+		ctx.fillText("Mark Zuckerberg", 680, 940);
+
+		//title
+		ctx.font = "40px Arial";
+		ctx.fillText("Net Worth of U.S. Billionaires", 200, 100);
+
+		//Rotated y-axis label
+		ctx.save();	//just targets this text, remove it, it applies to all text
+		ctx.translate(25,550);
+		ctx.rotate(-0.5*Math.PI);
+		var rText = 'Net Worth (in billions)';
+		ctx.fillText(rText , 0, 0);
+		ctx.restore();
+ 		}
+
+ 		//call out FUNCTIONS
+		Yvalues();
+ 		lollipop();
+ 		drawAxis();
+ 		text();
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
