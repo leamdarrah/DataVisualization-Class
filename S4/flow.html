@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Waterfall</title>
+</head>
+<style>
+	*{
+		font-family: lato;
+	}
+	h1{
+		color: #fe5f55;
+		margin: 0 400px;
+	}
+
+	/*x-axis labels*/
+	#labels{
+		position: absolute;
+		text-decoration: none;
+		margin: 500px 100px;
+		color: #4f6367;
+	}
+
+	#labels .labelText{
+		display: inline;
+		padding: 65px;
+	}
+
+	
+
+	.highlight{
+		fill: #fe5f55;
+		transition: 0.3s;
+	}
+
+	#number1, #number2, #number3, #number4, #number5{
+		position: absolute;
+		color: #4f6367;
+	}
+
+	#number1{
+		margin:75px 60px;
+	}
+
+	#number2{
+		margin:160px 40px;
+	}
+
+	#number3{
+		margin:250px 50px;
+	}
+
+	#number4{
+		margin:345px 50px;
+	}
+
+	#number5{
+		margin:435px 80px;
+	}
+
+	h2{
+		position: absolute;
+		color: #4f6367;
+		font-size: 35px; 
+	}
+
+	#units{
+		margin: 240px 210px;
+	}
+
+	#damaged{
+		margin: 100px 450px;
+	}
+
+	#refurbished{
+		margin:110px 680px;
+	}
+
+	#salable{
+		margin:340px 895px; 
+	}
+</style>
+
+<body>
+	<h1>Inventory Audit of T-Shirts</h1>
+	
+	<h2 id="units">217</h3>
+	<h2 id="damaged">-55</h3>
+	<h2 id="refurbished">37</h3>
+	<h2 id="salable">199</h3>
+
+
+	<ul id="labels">
+		<li class="labelText">Units in Stock</li> 
+		<li class="labelText">Damaged</li>
+		<li class="labelText">Refurbished</li>
+		<li class="labelText">Salable Units</li>
+	</ul>
+
+	<!--y-axis labels-->
+	<p id="number1">217</p>
+	<p id="number2">162.75</p>
+	<p id="number3">108.5</p>
+	<p id="number4">54.25</p>
+	<p id="number5">0</p>
+
+	<script>
+		var svg = 
+		document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("width", "1000");
+			svg.setAttribute("height", "1000");
+			svg.setAttribute("id", "stage");
+			document.body.append(svg);
+
+
+		//GUIDELINES
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","1000");
+			newLine.setAttribute("y1","355");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","355");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","1000");
+			newLine.setAttribute("y1","265");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","265");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","1000");
+			newLine.setAttribute("y1","175");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","175");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","1000");
+			newLine.setAttribute("y1","85");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","85");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine);
+
+
+		//WATERFALL LINES
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","195");
+			newLine.setAttribute("y1","85");
+			newLine.setAttribute("x2","530");
+			newLine.setAttribute("y2","85");
+			newLine.setAttribute("stroke", "#fe5f55");
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","430");
+			newLine.setAttribute("y1","150");
+			newLine.setAttribute("x2","750");
+			newLine.setAttribute("y2","150");
+			newLine.setAttribute("stroke", "#fe5f55");
+		document.getElementById("stage").appendChild(newLine);
+
+
+
+
+
+		//units in stock
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "195");
+			rectangle.setAttribute("y", "85");
+			rectangle.setAttribute("width", "100");
+			rectangle.setAttribute("height", "365");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//damaged
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "430");
+			rectangle.setAttribute("y", "85");
+			rectangle.setAttribute("width", "100");
+			rectangle.setAttribute("height", "65");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//refurbished
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "650");
+			rectangle.setAttribute("y", "110");
+			rectangle.setAttribute("width", "100");
+			rectangle.setAttribute("height", "40");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//salable units
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "880");
+			rectangle.setAttribute("y", "300");
+			rectangle.setAttribute("width", "100");
+			rectangle.setAttribute("height", "150");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+		
+	
+
+
+
+
+		//X-AXIS
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","100");
+			newLine.setAttribute("y1","450");
+			newLine.setAttribute("x2","1000");
+			newLine.setAttribute("y2","450");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine);
+
+		//Y-AXIS
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","100");
+			newLine.setAttribute("y1","85");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","450");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine);
+
+		
+
+		
+
+
+		//functions that do the hover effects
+		function mouseOver(x) {
+
+			console.log(this);
+ 			this.setAttribute("class", "highlight");
+		}
+
+		function mouseOut(x) {
+			this.classList.remove("highlight");
+		}
+	</script>
+</body>
+</html>

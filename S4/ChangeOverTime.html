@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Column - Change Over Time</title>
+</head>
+<style>
+	h1{
+		font-family: lato;
+		color: #fe5f55;
+		margin-left: 30px;
+	}
+
+	.highlight{	/*assign class to the rectangle to change color */
+		fill:#b8d8d8;
+		transition: 0.2s;
+	}
+
+	#yearsText{
+		position: absolute;
+		margin:460px 150px;
+	}
+
+
+	#percentText{
+		position: absolute;
+		margin-top: 75px;
+		margin-left: 40px;
+	}
+
+</style>
+
+<body>
+	<h1>Baby Name Popularity 1947-1953 (Mary)</h1>
+	<p id="yearsText">1947 1948 1949 1950 1951 1952 1953</p>
+	<p id="percentText">
+		4.000% <br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		3.825% <br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		3.650% <br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		3.475%<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		3.300% <br/>
+	</p>
+	<script>
+		var svg = 
+		document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("width", "1000");
+			svg.setAttribute("height", "1000");
+			svg.setAttribute("id", "stage");
+			document.body.append(svg);
+
+
+		//GUIDELINES
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","450");
+			newLine.setAttribute("y1","355");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","355");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","450");
+			newLine.setAttribute("y1","265");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","265");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","450");
+			newLine.setAttribute("y1","175");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","175");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","450");
+			newLine.setAttribute("y1","85");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","85");
+			newLine.setAttribute("stroke", "#cccccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+
+
+
+
+
+		//1 | 1947 | 3.944%
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "160"); 
+			rectangle.setAttribute("y", "90");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "360");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);		
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//2 | 1948 | 3.936%
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "195");
+			rectangle.setAttribute("y", "100");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "350");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//3 | 1949 | 3.809%
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "230");
+			rectangle.setAttribute("y", "200");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "250");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//4 | 1950 | 3.724%
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "265");
+			rectangle.setAttribute("y", "230");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "220");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//5 | 1951 | 3.558%
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "300");
+			rectangle.setAttribute("y", "300");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "150");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+		
+		//6 | 1952 | 3.451
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "335");
+			rectangle.setAttribute("y", "380");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "70");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//7 | 1953 | 3.336
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "370");
+			rectangle.setAttribute("y", "440");
+			rectangle.setAttribute("width", "20");
+			rectangle.setAttribute("height", "10");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.addEventListener("mouseover",mouseOver);	
+			rectangle.addEventListener("mouseout",mouseOut);
+			rectangle.setAttribute("class", "hoverRectangleColor");
+		document.getElementById("stage").appendChild(rectangle);
+
+
+
+
+
+
+		//Y-AXIS
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","100");
+			newLine.setAttribute("y1","75");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","450");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine);
+
+		//X-AXIS
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","450");
+			newLine.setAttribute("y1","450");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","450");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		
+
+
+		//functions that do the hover effects
+		function mouseOver(x) {
+
+			console.log(this);
+ 			this.setAttribute("class", "highlight");
+		}
+
+		function mouseOut(x) {
+			this.classList.remove("highlight");
+		}
+	</script>
+</body>
+</html>

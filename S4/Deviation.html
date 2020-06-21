@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Diverging Bar</title>
+</head>
+<style>
+	*{
+		color: #4f6367;
+		font-family: lato;
+	}
+	h1{
+		margin-left: 155px;
+	}
+	button{
+		padding: 15px 55px;
+		border-radius: 5px;
+		background-color:#fcba03;
+		font-family: lato;
+		color: white;
+		font-weight: bold;
+		border:none; 
+		margin-left: 145px;
+	}
+
+	button:hover{
+		color: #4f6367;
+		transition: 0.2s;
+	}
+
+	#months{
+		position: absolute;
+		list-style: none;
+		margin: 150px 630px;
+	}
+
+	#months .specificMonth{
+		padding: 40px;
+
+	}
+
+	#values{
+		position: absolute;
+		margin:550px 7px;
+	}
+
+	#values .specificValues{
+		display: inline;
+		padding: 21.5px;
+	}
+
+	#xAxisLabel{
+		position: absolute;
+		margin: 580px 330px;
+		font-weight: bold;
+	}
+</style>
+<body>
+	<h1>Profit Values from January to April</h1>
+	<p id="xAxisLabel">Profit Values (in dollars)</p>
+	<ul id="months">
+		<li class="specificMonth">January</li>
+	  	<li class="specificMonth">February</li>
+	  	<li class="specificMonth">March</li>
+	  	<li class="specificMonth">April</li>
+	</ul>
+		
+	<ul id="values">
+	  	<li class="specificValues">-1000</li>
+		<li class="specificValues">-750</li>
+		<li class="specificValues">-500</li>
+		<li class="specificValues">-250</li>
+		<li class="specificValues">0</li>
+		<li class="specificValues">250</li>
+		<li class="specificValues">500</li>
+		<li class="specificValues">750</li>
+		<li class="specificValues">1000</li>
+	</ul>
+	<button onclick="positiveValuesButton()">Positive Values</button>
+	<button onclick="negativeValuesButton()">Negative Values</button>
+	<script>
+		var svg = 
+		document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.setAttribute("width", "1000");
+			svg.setAttribute("height", "1000");
+			svg.setAttribute("id", "stage");
+			document.body.append(svg);
+
+		//guideline 1
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","400");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","400");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		//guideline 2
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","300");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","300");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		//guideline 3
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","200");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","200");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+		//guideline 4
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","100");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine/*THIS IS THE VAR NAME*/);
+
+
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","100");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","250");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","250");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine);
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","550");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","550");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine);
+
+
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","700");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "#ccc")
+		document.getElementById("stage").appendChild(newLine);
+
+
+
+		//rect 1
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "400");
+			rectangle.setAttribute("y", "135");
+			rectangle.setAttribute("width", "230");
+			rectangle.setAttribute("height", "30");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.setAttribute("class", "positiveValue");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//rect 2
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "400");
+			rectangle.setAttribute("y", "235");
+			rectangle.setAttribute("width", "130");
+			rectangle.setAttribute("height", "30");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.setAttribute("class", "positiveValue");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//rect 3
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "300");
+			rectangle.setAttribute("y", "335");
+			rectangle.setAttribute("width", "100");
+			rectangle.setAttribute("height", "30");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.setAttribute("class", "negativeValue");
+		document.getElementById("stage").appendChild(rectangle);
+
+		//rect 4
+		var rectangle =
+		document.createElementNS("http://www.w3.org/2000/svg", "rect");
+			rectangle.setAttribute("x", "100");
+			rectangle.setAttribute("y", "435");
+			rectangle.setAttribute("width", "300");
+			rectangle.setAttribute("height", "30");
+			rectangle.setAttribute("fill","#4f6367");
+			rectangle.setAttribute("class", "negativeValue");
+		document.getElementById("stage").appendChild(rectangle);
+
+
+
+
+
+
+		//bottom line
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","700");
+			newLine.setAttribute("y1","500");
+			newLine.setAttribute("x2","100");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine);
+
+		//vertical line
+		var newLine = 
+		document.createElementNS("http://www.w3.org/2000/svg","line");
+			newLine.setAttribute("x1","400");
+			newLine.setAttribute("y1","100");
+			newLine.setAttribute("x2","400");
+			newLine.setAttribute("y2","500");
+			newLine.setAttribute("stroke", "black")
+		document.getElementById("stage").appendChild(newLine);
+
+
+
+		//positive values button toggle
+		function positiveValuesButton() {
+			  var toggleRectButton = document.getElementsByClassName("positiveValue"); //turn variable into the class called "positiveValue" (check rect.setAttr)
+			  
+			  //for the whole length of all the classes called "positiveValue", follow the function toggleRectPos()
+			 for(i = 0; i < toggleRectButton.length; i++){
+			 	toggleRectPos(toggleRectButton[i],i);	//function from down below
+			 }
+		}
+
+		//this function toggles the rectangles from "block" to "none" visibility
+		function toggleRectPos(toggleRectButton, index){
+			if (toggleRectButton.style.display === "none") 
+			  {
+			    toggleRectButton.style.display = "block";
+			  } 
+			  
+			  else {
+			    toggleRectButton.style.display = "none";
+			  }
+		}
+
+
+
+
+
+		//negative values button toggle
+		function negativeValuesButton() {
+			  var toggleRectButton = document.getElementsByClassName("negativeValue"); 
+			 for(i = 0; i < toggleRectButton.length; i++){
+			 	toggleRectNeg(toggleRectButton[i],i);	
+			 }
+		}
+
+
+		//this function toggles the rectangles from "block" to "none" visibility
+		function toggleRectNeg(toggleRectButton, index){
+			if (toggleRectButton.style.display === "none") 
+			  {
+			    toggleRectButton.style.display = "block";
+			  } 
+			  
+			  else {
+			    toggleRectButton.style.display = "none";
+			  }
+		}
+
+	</script>
+</body>
+</html>
