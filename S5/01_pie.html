@@ -1,0 +1,119 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+    <title>Lea Hawkins - Pie Chart</title>
+	<script src="https://d3js.org/d3.v5.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+	<!--TUTORIAL FOLLOWED (part 1): https://www.youtube.com/watch?v=P8KNr0pDqio&t=6s-->
+	<!--TUTORIAL FOLLOWED (part 2): https://www.youtube.com/watch?v=L5GXOdt2uOc&t=430s-->
+	<!--NOT ALL CODE IS MINE BUT ALTERED AND COMMENTED TO MY UNDERSTANDING-->
+	<style>
+		*{
+			font-family: 'Roboto', sans-serif;
+			background-color: #404040;
+		}
+
+		p{
+			font-style: italic;
+			color: #d1d1d1;
+		}
+
+		/*text of legend and numbers on pie chart*/
+		text{
+			font-size: 20px;
+			fill: white;
+		}
+		h1{
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<h1>Where the $2 trillion stimulus is going</h1>
+	<p>**amount is in billions</p>
+	<div id="pieChart"></div> <!--where the chart will be located-->
+
+
+	<script>
+		var width = 900;
+		var height = 500;
+		
+		//colors for the pie chart
+		var colors = d3.scaleOrdinal()
+  			.range(["#003f5c", "#005b76", "#00787e", "#009371", "#36ab54", "#93be2c", "#edc602"])
+
+  		//dimensions of the whole thing
+		var svg = d3.select("body").append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+
+		//data from https://www.reddit.com/r/dataisbeautiful/comments/fwdchx/oc_the_2_trillion_stimulus_and_where_the_money/
+		var dataArray = 
+		[{location:"Individuals ($560B)", number:560},
+		{location:"Big Businesses ($500B)", number:500},
+		{location:"Small Businesses ($377B)", number:377},
+		{location:"State & Local Government ($339.8B)", number:339.8},
+		{location:"Public Health ($153.5B)", number:153.5},
+		{location:"Education Loans & Relief ($43.7B)", number:43.7},
+		{location:"Safety Net ($26B)", number:26}];
+
+		//process of creating the pie chart and connecting it with the data
+		var data = d3.pie().sort(null).value(function(d){return d.number;}) //number is from dataArray
+		(dataArray);
+		
+
+		var segments = d3.arc()
+			.innerRadius(0) //higher the number, bigger circle in the center (think of donut chart)
+			.outerRadius(200) //actual size of pie chart; circum. 
+
+
+		var sections = svg.append("g") //append g
+			.attr("transform", "translate(250,250)") //location of the pie chart
+			.selectAll("path")
+			.data(data);
+
+		//connect with var colors from above
+		sections.enter().append("path")
+			.attr("d", segments)
+			.attr("fill", function(d)
+				{
+					return colors(d.data.number); //return the colors of number from line 57
+				}
+			);
+
+		var content = d3.select("g").selectAll("text").data(data);
+		content.enter().append("text").each(function(d){
+			var center = segments.centroid(d);
+			d3.select(this) //text element is selected
+				.attr("x", center[0]) //center of zero
+				.attr("y", center[1]) 
+				.text(d.data.number); //get number from the data
+		})
+
+
+		var legends = svg.append("g") //main "g"
+			.attr("transform","translate(500,100)") //location of the text
+			.selectAll(".legends").data(data); //select the class called 'legend';if we select "g", itll select the "g"from above
+			
+
+		var legend = legends.enter().append("g")/*new "g"*/.classed("legends",true) //newly added element;name class called 'legend' from above(.legend)
+			.attr("transform",function(d,i){return "translate(0," + (i+1)*30 + ")";}); //this is the top/bottom spacing between the legend items
+			legend.append("rect")
+				.attr("width", 20)//width of legend square
+				.attr("height",20)//height of legend square
+				.attr("fill", function(d)
+					{
+						return colors(d.data.number); //fill it with the color related to the pie chart numbers
+					}
+				);
+			legend.append("text").text(function(d)
+				{
+					return d.data.location; //retrieve text from dataArray 'location'
+				}
+			)
+				.attr("x", 28) //location of the text (x)
+				.attr("y", 19);//location of the text (y)
+	</script>
+</body>

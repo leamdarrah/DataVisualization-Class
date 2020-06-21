@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Lea Hawkins - Bar Graph Edit</title>
+		<script src = "https://d3js.org/d3.v4.min.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">	
+		<style type="text/css">
+			*{
+				font-family: 'Open Sans', sans-serif;
+			}
+
+			rect:hover {
+				fill: #ed6663;
+			}
+			
+			/*styling for hover box*/
+			#tooltip {
+				position: absolute;
+				width: 200px;
+				height: auto;
+				padding: 10px;
+				background-color: white;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				border-radius: 3px;
+				-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+				pointer-events: none;
+			}
+			
+			#tooltip.hidden {
+				display: none;
+			}
+			
+			/*styling for text inside box*/
+			#tooltip p {
+				margin: 0;
+				font-size: 16px;
+				line-height: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Number of Nintendo Switches Sold Globally From Mar'17 - Feb'20</h1>
+		<div id="tooltip" class="hidden">
+			<p><strong>Number of Switches Sold (millions)</strong></p>
+			<p><span id="value">100</span></p>
+			<p><span id="date">[insert date]</span></p>
+		</div>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 600;
+			var h = 250;
+			
+			//data retrieved from https://www.statista.com/statistics/687059/nintendo-switch-unit-sales-worldwide/
+			var dataset = [ 1.5, 7.63, 10, 15.5, 17.79, 19.67, 22.86, 32.27, 34.74, 36.87,36.21, 37.2, 38.75, 40.74, 44.59, 49.81, 50.51, 51.52];
+
+			var dataset2 = [
+			"Mar 2017", 
+			"Sept 2017",
+			"Dec 2017", 
+			"Mar 2018",
+			"Apr 2018", 
+			"Jun 2018",
+			"Sept 2018", 
+			"Dec 2018",
+			"Mar 2019", 
+			"Jun 2019",
+			"Jul 2019", 
+			"Aug 2019",
+			"Sept 2019", 
+			"Oct 2019",
+			"Nov 2019", 
+			"Dec 2019",
+			"Jan 2020", 
+			"Feb 2020" 
+			];
+
+			var xScale = d3.scaleBand()
+							.domain(d3.range(dataset.length))
+							.rangeRound([0, w])
+							.paddingInner(0.02); //bigger number = bigger white outlining around blue rectangles
+
+			var yScale = d3.scaleLinear()
+							.domain([0, d3.max(dataset)])
+							.range([0, h]);
+			
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Create bars
+			svg.selectAll("rect")
+			   .data(dataset)
+			   .enter()
+			   .append("rect")
+			   .attr("x", function(d, i) {
+			   		return xScale(i);
+			   })
+			   .attr("y", function(d) {
+			   		return h - yScale(d);
+			   })
+			   .attr("width", xScale.bandwidth())
+			   .attr("height", function(d) {
+			   		return yScale(d);
+			   })
+
+
+
+
+			   //fill of the rectangles w/out hover
+			   .attr("fill", function(d) {
+					return "#0f4c81";
+			   })
+			   .on("mouseover", function(d) {
+
+					//Get this bar's x/y values, then augment for the tooltip
+					var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.bandwidth() / 2;
+					var yPosition = parseFloat(d3.select(this).attr("y")) / 2 + h / 2;
+
+
+
+					//Update the tooltip position and value; displays var dataset
+					d3.select("#tooltip")
+						.style("left", xPosition + "px")
+						.style("top", yPosition + "px")					
+						.select("#value")
+						.text(d);
+						
+
+					//trying to display dataset2 respective to dataset. but failed
+					/*d3.select("#tooltip")
+						.select("#date")
+						.text(dataset2);
+					*/
+
+					//Show the tooltip
+					d3.select("#tooltip").classed("hidden", false);
+
+			   })
+			   .on("mouseout", function() {
+			   
+					//Hide the tooltip
+					d3.select("#tooltip").classed("hidden", true);
+					
+			   })
+			   .on("click", function() {
+			   		sortBars();
+			   });
+
+			//Define sort order flag
+			var sortOrder = false;
+			
+			//Define sort function
+			var sortBars = function() {
+			   	sortOrder = !sortOrder;//Flip value of sortOrder
+				svg.selectAll("rect")
+				   .sort(function(a, b) {
+				   		if (sortOrder) {
+					   		return d3.ascending(a, b);
+				   		} else {
+					   		return d3.descending(a, b);
+				   		}
+				   	})
+				   .transition()
+				   .delay(function(d, i) {
+					   return i * 50;
+				   })
+				   .duration(1000)
+				   .attr("x", function(d, i) {
+				   		return xScale(i);
+				   });
+			};			
+		</script>
+	</body>
+</html>
